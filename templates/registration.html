@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+
+{% block jumbotron %}<h1>Just fill in the form</h1>{% endblock %}
+{% block content %}
+<head>
+  <title> Registration </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.css">
+</head>
+
+    <form method="POST" action="/registration">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for message in messages %}
+      
+      <span style="color: green;">{{ message }}</span>
+      {% endfor%}
+      {% endif %}
+      {% endwith %}
+      {{ form.hidden_tag() }}
+
+      <div class="col-lg-6 col-lg-offset-3">
+        <div class="form-outline mb-4">
+
+          {% if not form.username.errors %}
+            {{ form.username.label(**{"class": "form-label", "for":"form2Example1"}) }}
+            {{ form.username(**{"type":"username", "id": "form2Example1", "class": "form-control"}) }}
+          {% else %}
+            {{ form.username.label(**{"class": "form-label", "for":"form2Example1"})   }}
+            {{ form.username(**{"type":"username", "id": "form2Example1", "class": "form-control"})}}
+        
+            {% for error in form.username.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+      </div>
+      <div class="form-outline mb-4">
+          {% if not form.email.errors %}
+          {{ form.email.label(**{"class": "form-label", "for":"form2Example1"}) }}
+          {{ form.email(**{"type":"email", "id": "form2Example1", "class": "form-control"}) }}
+          {% else %}
+          {{ form.email.label(**{"class": "form-label", "for":"form2Example1"}) }}
+          {{ form.email(**{"type":"email", "id": "form2Example1", "class": "form-control"}) }}
+            {% for error in form.email.errors %}
+            <span style="color: red;">{{ error }}</span>
+          {% endfor %}
+        {% endif %}
+
+      </div>
+      <div class="form-outline mb-4">
+        {% if not form.password.errors %}
+            {{ form.password.label(**{"class": "form-label", "for":"form2Example1"}) }}
+            {{ form.password(**{"type":"password", "id": "form2Example1", "class": "form-control"}) }}
+        {% else %}
+            {{ form.password.label(**{"class": "form-label", "for":"form2Example1"}) }}
+            {{ form.password(**{"type":"password", "id": "form2Example1", "class": "form-control"})}}
+        
+            {% for error in form.password.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+
+      </div>
+      <div class="form-outline mb-4">
+      {% if not form.confirm_password.errors %}
+            {{ form.confirm_password.label(**{"class": "form-label", "for":"form2Example1"}) }}
+            {{ form.confirm_password(**{"type":"password", "id": "form2Example1", "class": "form-control"}) }}
+        {% else %}
+            {{ form.confirm_password.label(**{"class": "form-label", "for":"form2Example1"}) }}
+            {{ form.confirm_password(**{"type":"password", "id": "form2Example1", "class": "form-control"})}}
+        
+            {% for error in form.confirm_password.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        {% endif %}
+      </div>
+      <div class="form-outline mb-4" style="padding-top: 10px;">
+        <p>{{ form.submit(type="submit", class="btn btn-primary") }} 
+          <a href="/login" class="btn btn-primary" role="button">
+           Back to login
+        </a> </p>
+    </div>
+  </div>
+
+    </form>
+{% endblock %}
